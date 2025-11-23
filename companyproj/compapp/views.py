@@ -1,7 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Employee, Project
 from django.utils import timezone
-
+from .forms import EmployeeForm, ProjectForm 
+from django.utils.text import slugify
 # Create your views here.
 
 def employee_list(request):
@@ -21,3 +22,31 @@ def employee_detail(request, employee_id):
 def employee_engineers(request):
     employees = Employee.objects.filter(position__icontains="engineer")
     return render(request, 'employee_list.html', {'employees': employees})
+
+def add_employee(request):
+    form=EmployeeForm(request.POST or None)
+    data = {}
+    data["form"] = form #4
+
+    if form.is_valid(): #5
+        employee=form.save(commit=False) #2
+        
+        
+        return redirect("employee_list",) #7
+    
+
+    return render(request, 'add_employee.html', data)
+
+def add_project(request):
+    form=ProjectForm(request.POST or None)
+    data = {}
+    data["form"] = form #4
+
+    if form.is_valid(): #5
+        project=form.save(commit=False) #2
+        project.save() #3
+        
+        return redirect("employee_list",) #7
+    
+
+    return render(request, 'add_project.html', data)

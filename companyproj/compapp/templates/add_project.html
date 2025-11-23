@@ -1,0 +1,7 @@
+<form method="POST">
+    {% csrf_token %}
+    <h1>Add New Project</h1>
+    {{ form.as_p }}
+    <button type="submit">Add Project</button>
+</form>
+<a href="{% url 'employee_list' %}">Back to Employee List</a>

@@ -8,8 +8,11 @@
         li { margin: 10px 0; padding: 8px; background-color: #f4f4f4; border-radius: 5px; }
     </style>
 </head>
+
 <body>
     <h1>Employee List (Alphabetical)</h1>
+    <a href ="{% url 'add_employee' %}">Add New Employee</a> |
+    <a href ="{% url 'add_project' %}">Add New Project</a>
     <ul>
         {% for employee in employees %}
             <li>
